@@ -1,0 +1,22 @@
+
+# Core dependencies
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+python-dotenv==1.0.0
+
+# Git operations
+GitPython==3.1.41
+
+# HTTP client for GitHub API
+requests==2.31.0
+
+# CLI interface
+click==8.1.7
+
+# Type hints support
+typing-extensions==4.9.0
+
+
+# Security
+python-multipart==0.0.6  # For form data support

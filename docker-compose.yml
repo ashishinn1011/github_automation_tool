@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  github-automation:
+    build: .
+    container_name: github-automation-tool
+    ports:
+      - "7309:7309"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=7309
+      - FASTAPI_PORT=7309
+      - API_SERVER_URL=http://localhost:7309
+      - API_SERVER_DESCRIPTION=Github automation Tool
+      # Add your GitHub credentials here or use the API endpoint after startup
+      # - GITHUB_USERNAME=your_username
+      # - GITHUB_TOKEN=your_token
+    volumes:
+      # Mount a volume for git repositories (optional)
+      - ./repos:/app/repos
+      # Mount config directory for persistence
+      - ./config:/app/config
+      # Mount .env file for credential updates (optional)
+      - ./.env:/app/.env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7309/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - github-automation-network
+
+networks:
+  github-automation-network:
+    driver: bridge
